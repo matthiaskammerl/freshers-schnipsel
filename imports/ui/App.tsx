@@ -1,13 +1,14 @@
 import React from 'react';
-import { Hello } from './Hello';
-import { Info } from './Info';
-import AppNavBar from "/imports/navBar/AppNavBar";
+import AppNavBar from "/imports/ui/navBar/AppNavBar";
+import '@shoelace-style/shoelace/dist/themes/light.css';
+import {setBasePath} from '@shoelace-style/shoelace/dist/utilities/base-path';
+import TabGroup from "/imports/ui/navBar/TabGroup";
+
+setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0/dist/');
 
 export const App = () => (
-  <div>
-      <AppNavBar/>
-    <h1>Welcome to Meteor! test</h1>
-    <Hello />
-    <Info />
-  </div>
+    <div>
+        <AppNavBar/>
+        <TabGroup/>
+    </div>
 );
