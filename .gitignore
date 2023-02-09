@@ -33,6 +33,9 @@ Temporary Items
 Thumbs.db
 ehthumbs.db
 
+# Node mocules
+node_modules
+
 # Folder config file
 Desktop.ini
 
