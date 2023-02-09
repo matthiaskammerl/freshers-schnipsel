@@ -13,6 +13,8 @@ export const App = () => (
         <AppNavBar/>
         <TabGroup/>
         <SchnipselDialog />
-        <SchnipselCard />
+        <div>
+            <SchnipselCard />
+        </div>
     </div>
 );

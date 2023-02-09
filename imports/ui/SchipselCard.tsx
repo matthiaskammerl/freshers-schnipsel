@@ -23,21 +23,22 @@ const css = `
   }
 `;
 
-export const SchnipselCard = () =>{
-    const schnipsel = useTracker(() => SchnipselCollection.find().fetch())
-    // const oneTitle = allTitles[0].title
+export const SchnipselCard = (): JSX.Element[] =>{
+    const schnipsel = useTracker(() => SchnipselCollection.find({}, { sort: { createdAt: -1 } }).fetch())
 
-    console.log(schnipsel)
+    return schnipsel.map(schnipsel => {
+            return (
+                <>
+                    <SlCard className="card-header">
+                        <div slot="header">
+                            {schnipsel.title}
+                            <SlIconButton name="pencil-square"></SlIconButton>
+                        </div>
+                        {schnipsel.text}
+                    </SlCard>
+                    <style>{css}</style>
+                </>
+            );
+        })
 
-    return (
-        <>
-            <SlCard className="card-header">
-                <div slot="header">
-                    <SlIconButton name="gear"></SlIconButton>
-                </div>
-                This card has a header. You can put all sorts of things in it!
-            </SlCard>
-            <style>{css}</style>
-        </>
-    );
 }
