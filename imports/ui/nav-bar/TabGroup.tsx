@@ -16,15 +16,15 @@ export default function TabGroup() {
                 width: "100%",
                 marginInline: "auto"
             }}>
-                    <SlTab slot="nav" panel="general">
-                        Alle Schnipsel
-                    </SlTab>
-                    <SlTab slot="nav" panel="custom">
-                        Placeholder 1
-                    </SlTab>
-                    <SlTab slot="nav" panel="advanced">
-                        Placeholder 2
-                    </SlTab>
+                <SlTab slot="nav" panel="general">
+                    Alle Schnipsel
+                </SlTab>
+                <SlTab slot="nav" panel="custom">
+                    Placeholder 1
+                </SlTab>
+                <SlTab slot="nav" panel="advanced">
+                    Placeholder 2
+                </SlTab>
 
                     <SlTabPanel name="general">
                         <SchnipselCardList />

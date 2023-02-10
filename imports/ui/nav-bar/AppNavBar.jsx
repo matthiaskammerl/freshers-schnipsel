@@ -15,6 +15,7 @@ export default function AppNavBar() {
                 maxWidth: "1200px",
                 width: "100%",
                 marginInline: "auto",
+                paddingInline: "0.5rem",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between"
