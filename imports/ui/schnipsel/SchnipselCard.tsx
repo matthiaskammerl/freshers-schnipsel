@@ -4,7 +4,6 @@ import {Schnipsel} from "/imports/api/schnipsel";
 
 const css = `
   .schnipsel-card {
-    max-width: 300px;
     word-break: break-word;
   }
   

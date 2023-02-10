@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {SlIcon, SlIconButton, SlInput} from "@shoelace-style/shoelace/dist/react";
-import {SchnipselDialog} from "/imports/ui/schnipsel/SchipselDialog";
+import {SchnipselDialog} from "/imports/ui/schnipsel/SchnipselDialog";
 
 export default function AppNavBar() {
     return (
