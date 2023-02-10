@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, {useState} from 'react';
 import {SlButton, SlDialog, SlInput} from '@shoelace-style/shoelace/dist/react';
 import {SchnipselCollection} from "/imports/api/schnipsel";
 
@@ -29,7 +28,7 @@ export const SchnipselDialog = () => {
                 </SlButton>
             </SlDialog>
 
-            <SlButton onClick={() => setOpen(true)}>Open Schnipsel Dialog</SlButton>
+            <SlButton onClick={() => setOpen(true)}>Neuer Schnipsel</SlButton>
         </>
     );
 };
