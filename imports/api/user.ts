@@ -1,8 +1,8 @@
-import { Mongo } from 'meteor/mongo';
+import {Mongo} from 'meteor/mongo';
 
 export interface User {
-  _id?: string;
-  name: string;
+    _id: string;
+    name: string;
 
 }
 

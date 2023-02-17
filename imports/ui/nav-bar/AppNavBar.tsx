@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {useRef} from 'react';
-import {SlButton, SlIcon, SlInput} from "@shoelace-style/shoelace/dist/react";
+import {SlButton} from "@shoelace-style/shoelace/dist/react";
 import {SchnipselDialog} from "/imports/ui/schnipsel/SchnipselDialog";
 import {UserDropdown} from "/imports/ui/user/UserDropdown";
-import {generateNewSchnipsel} from "/imports/api/schnipsel";
+import {newSchnipsel} from "/imports/api/schnipsel";
 
 type navBarProps = {
     setActiveUser: React.Dispatch<React.SetStateAction<string>>
@@ -30,14 +30,11 @@ export default function AppNavBar(props: navBarProps) {
             }}>
                 <h2>Schnipsel</h2>
                 <div style={{display: "flex", alignItems: "center", gap: "1rem"}}>
-                    <SchnipselDialog currentUser={props.currentUser} ref={ref} schnipsel={generateNewSchnipsel}/>
+                    <SchnipselDialog currentUser={props.currentUser} ref={ref} schnipsel={newSchnipsel()}/>
                     <SlButton onClick={() => {
                         // @ts-ignore
                         ref.current.show()
                     }}>Neuer Schnipsel</SlButton>
-                    <SlInput placeholder="Suche" size="medium">
-                        <SlIcon name="search" slot="prefix"></SlIcon>
-                    </SlInput>
                     <UserDropdown setActiveUser={props.setActiveUser}/>
                 </div>
             </div>

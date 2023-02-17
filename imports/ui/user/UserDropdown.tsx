@@ -11,13 +11,13 @@ export const UserDropdown = (props: userDropdownProps) => {
     const users = useTracker(() => UserCollection.find({}).fetch())
 
     const setActiveUserInComponent = (e: any) => {
-        console.log(e)
         props.setActiveUser(e.target.value)
     }
 
     return (
-        <SlSelect onSlChange={setActiveUserInComponent}>
-            {users.map(user => <SlOption value={user._id}>{user.name}</SlOption>)}
+        <SlSelect placeholder="User auswählen" style={{color: "black"}}
+                  onSlChange={setActiveUserInComponent}>
+            {users.map(user => <SlOption key={user._id} value={user._id}>{user.name}</SlOption>)}
         </SlSelect>
     );
 };
