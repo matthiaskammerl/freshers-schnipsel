@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {forwardRef, useImperativeHandle, useState} from 'react';
 import {SlButton, SlDialog, SlInput, SlTextarea} from '@shoelace-style/shoelace/dist/react';
-import {SchnipselCollection} from "/imports/api/schnipsel";
+import {Schnipsel, SchnipselCollection} from "/imports/api/schnipsel";
 import type SlInputElement from '@shoelace-style/shoelace/dist/components/input/input';
 
 const css = `
@@ -34,34 +34,55 @@ const css = `
   }
 `;
 
-export const SchnipselDialog = () => {
+type SchnipselDialogProps = {
+    currentUser: string,
+    schnipsel: Schnipsel
+}
+export const SchnipselDialog = forwardRef((props: SchnipselDialogProps, ref) => {
     const [open, setOpen] = useState(false);
-    const [title, setTitle] = useState<string>('');
-    const [text, setText] = useState<string>('');
+    const [title, setTitle] = useState<string>(props.schnipsel.title);
+    const [text, setText] = useState<string>(props.schnipsel.text);
+
+    useImperativeHandle(ref, () => ({
+        show() {
+            setOpen(true)
+        }
+    }))
+
+    function clearFields() {
+        setText('')
+        setTitle('')
+    }
 
     return (
         <>
             <SlDialog label="Neuen Schnipsel hinzufügen" open={open} onSlAfterHide={() => setOpen(false)}>
-                <SlInput className="schnipsel-dialog-input label-on-left" label="Titel" onSlInput={e => setTitle((e.target as SlInputElement).value)} ></SlInput>
-                <SlTextarea className="schnipsel-dialog-input label-on-left" label="Text" onSlInput={(e) => setText((e.target as SlInputElement).value)} ></SlTextarea>
+                <SlInput className="schnipsel-dialog-input label-on-left" label="Titel"
+                         onSlInput={e => setTitle((e.target as SlInputElement).value)} value={title}></SlInput>
+                <SlTextarea className="schnipsel-dialog-input label-on-left" label="Text"
+                            onSlInput={(e) => setText((e.target as SlInputElement).value)} value={text}></SlTextarea>
                 <SlButton slot="footer" variant="primary" disabled={!text} onClick={() => {
                     setOpen(false)
-                    SchnipselCollection.insert({
-                        text: text,
-                        title,
-                        createdBy: "A USER",
-                        createdAt: new Date()
-                    })
+                    SchnipselCollection.upsert({_id: props.schnipsel._id},
+                        {
+                            text: text,
+                            title,
+                            createdBy: props.currentUser,
+                            createdAt: props.schnipsel.createdAt ? props.schnipsel.createdAt : new Date(),
+                            lastModifiedAt: new Date()
+                        })
+                    clearFields()
                 }}>
                     Submit
                 </SlButton>
-                <SlButton slot="footer" variant="default" onClick={() => setOpen(false)}>
+                <SlButton slot="footer" variant="default" onClick={() => {
+                    setOpen(false)
+                    clearFields()
+                }}>
                     Close
                 </SlButton>
                 <style>{css}</style>
             </SlDialog>
-
-            <SlButton onClick={() => setOpen(true)}>Neuer Schnipsel</SlButton>
         </>
     );
-};
+});

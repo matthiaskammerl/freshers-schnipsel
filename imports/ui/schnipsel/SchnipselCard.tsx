@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useRef} from "react";
 import {SlCard, SlIconButton} from '@shoelace-style/shoelace/dist/react';
 import {Schnipsel} from "/imports/api/schnipsel";
+import {SchnipselDialog} from "/imports/ui/schnipsel/SchnipselDialog";
 
 const css = `
   .schnipsel-card {
@@ -26,17 +27,24 @@ const css = `
   }
 `;
 
-export const SchnipselCard = ({schnipsel}: { schnipsel: Schnipsel }): JSX.Element => {
+export const SchnipselCard = ({schnipsel, currentUser}: { schnipsel: Schnipsel, currentUser: string }): JSX.Element => {
+
+    const ref = useRef()
+
 
     return (
         <>
             <SlCard className="schnipsel-card">
                 <div slot="header">
                     {schnipsel.title}
-                    <SlIconButton name="pencil-square"></SlIconButton>
+                    <SlIconButton onClick={() => {
+                        // @ts-ignore
+                        ref.current.show()
+                    }} name="pencil-square"></SlIconButton>
                 </div>
                 {schnipsel.text}
             </SlCard>
+            <SchnipselDialog currentUser={currentUser} ref={ref} schnipsel={schnipsel}/>
             <style>{css}</style>
         </>
     );

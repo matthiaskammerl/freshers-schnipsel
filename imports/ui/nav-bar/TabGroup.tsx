@@ -8,7 +8,11 @@ const css = `
    }
 `;
 
-export default function TabGroup() {
+type TapGroupProps = {
+    currentUser: string
+}
+
+export default function TabGroup(props: TapGroupProps) {
     return (
         <>
             <SlTabGroup style={{
@@ -26,11 +30,11 @@ export default function TabGroup() {
                     Placeholder 2
                 </SlTab>
 
-                    <SlTabPanel name="general">
-                        <SchnipselCardList />
-                    </SlTabPanel>
-                    <SlTabPanel name="custom">Placeholder 1</SlTabPanel>
-                    <SlTabPanel name="advanced">Placeholder 2</SlTabPanel>
+                <SlTabPanel name="general">
+                    <SchnipselCardList currentUser={props.currentUser}/>
+                </SlTabPanel>
+                <SlTabPanel name="custom">Placeholder 1</SlTabPanel>
+                <SlTabPanel name="advanced">Placeholder 2</SlTabPanel>
             </SlTabGroup>
             <style>{css}</style>
         </>
