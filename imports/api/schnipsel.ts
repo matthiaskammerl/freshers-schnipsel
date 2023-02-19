@@ -5,7 +5,7 @@ export interface Schnipsel {
     title: string;
     text: string;
     createdBy: string;
-    sharedWith: string[];
+    sharedWith?: string[];
     createdAt?: Date;
     lastModifiedAt?: Date;
 

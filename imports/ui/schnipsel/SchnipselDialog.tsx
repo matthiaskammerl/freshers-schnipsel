@@ -5,43 +5,16 @@ import type SlInputElement from '@shoelace-style/shoelace/dist/components/input/
 import {useTracker} from "meteor/react-meteor-data";
 import {UserCollection} from "/imports/api/user";
 
-const css = `
-  
-  .label-on-left {
-    --label-width: 60px;
-    --gap-width: 1rem;
-  }
-
-  .label-on-left + .label-on-left {
-    margin-top: var(--sl-spacing-medium);
-  }
-
-  .label-on-left::part(form-control) {
-    display: grid;
-    grid: auto / var(--label-width) 1fr;
-    gap: var(--sl-spacing-3x-small) var(--gap-width);
-    align-items: center;
-  }
-
-  .label-on-left::part(form-control-label) {
-    text-align: right;
-  }
-
-  .label-on-left::part(form-control-help-text) {
-    grid-column: span 2;
-    padding-left: calc(var(--label-width) + var(--gap-width));
-  }
-`;
-
 type SchnipselDialogProps = {
     currentUser: string,
     schnipsel: Schnipsel
 }
+
 export const SchnipselDialog = forwardRef((props: SchnipselDialogProps, ref) => {
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState<string>(props.schnipsel.title);
     const [text, setText] = useState<string>(props.schnipsel.text);
-    const [sharedWith, setSharedWith] = useState<string[]>(props.schnipsel.sharedWith);
+    const [sharedWith, setSharedWith] = useState<string[]>(props.schnipsel.sharedWith ? props.schnipsel.sharedWith : []);
 
     const users = useTracker(() => UserCollection.find({}).fetch())
 
@@ -78,8 +51,7 @@ export const SchnipselDialog = forwardRef((props: SchnipselDialogProps, ref) => 
 
     return (
         <>
-            <SlDialog style={{color: "black"}} label={getLabel()} open={open}
-            >
+            <SlDialog label={getLabel()} open={open}>
                 <SlInput className="label-on-left" label="Titel"
                          onSlInput={e => setTitle((e.target as SlInputElement).value)} value={title}></SlInput>
                 <SlTextarea className="label-on-left" label="Text"
@@ -104,3 +76,30 @@ export const SchnipselDialog = forwardRef((props: SchnipselDialogProps, ref) => 
         </>
     );
 });
+
+const css = `
+  .label-on-left {
+    --label-width: 60px;
+    --gap-width: 1rem;
+  }
+
+  .label-on-left + .label-on-left {
+    margin-top: var(--sl-spacing-medium);
+  }
+
+  .label-on-left::part(form-control) {
+    display: grid;
+    grid: auto / var(--label-width) 1fr;
+    gap: var(--sl-spacing-3x-small) var(--gap-width);
+    align-items: center;
+  }
+
+  .label-on-left::part(form-control-label) {
+    text-align: right;
+  }
+
+  .label-on-left::part(form-control-help-text) {
+    grid-column: span 2;
+    padding-left: calc(var(--label-width) + var(--gap-width));
+  }
+`;

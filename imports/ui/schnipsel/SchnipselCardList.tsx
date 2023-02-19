@@ -9,13 +9,6 @@ type SchnipselCardListProps = {
 }
 
 export const SchnipselCardList = (props: SchnipselCardListProps) => {
-
-    const gridStyling = {
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(250px, 100%), 1fr))",
-        gap: "1rem"
-    };
-
     return (
         <div style={gridStyling}>
             {props.schnipselList.map(schnipsel =>
@@ -23,5 +16,11 @@ export const SchnipselCardList = (props: SchnipselCardListProps) => {
                                editable={props.editable}/>
             )}
         </div>
-    );
+    )
+}
+
+const gridStyling = {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(min(250px, 100%), 1fr))",
+    gap: "1rem"
 };
