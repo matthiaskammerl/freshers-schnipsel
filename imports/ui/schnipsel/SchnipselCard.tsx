@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {SlCard, SlIconButton} from '@shoelace-style/shoelace/dist/react';
-import {Schnipsel} from "/imports/api/schnipsel";
+import {Schnipsel, SchnipselCollection} from "/imports/api/schnipsel";
 import {SchnipselDialog} from "/imports/ui/schnipsel/SchnipselDialog";
 import {useTracker} from "meteor/react-meteor-data";
 import {UserCollection} from "/imports/api/user";
@@ -16,10 +16,18 @@ export const SchnipselCard = ({schnipsel, currentUser, editable}: SchnipselCardP
             <SlCard className="schnipsel-card">
                 <div slot="header">
                     {schnipsel.title}
-                    {editable && <SlIconButton onClick={() => {
-                        // @ts-ignore
-                        ref.current.show()
-                    }} name="pencil-square"></SlIconButton>
+                    {editable &&
+                        <div>
+                            <SlIconButton onClick={() => {
+                                // @ts-ignore
+                                ref.current.show()
+                            }} name="pencil-square"/>
+                            <SlIconButton onClick={() => {
+                                console.log("delete action")
+                                SchnipselCollection.remove({_id: schnipsel._id})
+                            }
+                            } name="trash" />
+                        </div>
                     }
                 </div>
                 <div>
